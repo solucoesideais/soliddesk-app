@@ -12,7 +12,6 @@ class CreateTicketsTest extends TestCase
 
     /**
      * @test
-     * @group f
      */
     public function a_user_can_open_a_ticket()
     {
@@ -21,7 +20,9 @@ class CreateTicketsTest extends TestCase
         $this->post('/tickets', $attributes = [
             'title' => $title,
             'body' => $body,
-        ]);
+        ])
+        ->assertStatus(302)
+        ->assertRedirect('/tickets');
 
         $this->assertDatabaseHas('tickets', $attributes + ['user_id' => $this->user->id]);
     }

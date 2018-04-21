@@ -1,5 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/style.css": "/css/style.css",
-    "/js/menu.js": "/js/menu.js"
+    "/js/menu.js": "/js/menu.js",
+    "/images/avatar.png": "/images/avatar.png",
+    "/images/company-avatar.png": "/images/company-avatar.png",
+    "/images/logo.png": "/images/logo.png"
 }

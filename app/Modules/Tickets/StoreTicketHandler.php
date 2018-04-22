@@ -2,14 +2,22 @@
 
 namespace App\Modules\Tickets;
 
-use Illuminate\Http\Request;
+use App\Modules\Tickets\Requests\StoresTicketRequest;
+use Library\Eloquent\Attachment;
 use Library\Eloquent\Ticket;
+use Library\Storage\Disk;
 
 class StoreTicketHandler
 {
-    public function __invoke(Request $request, Ticket $ticket)
+    public function __invoke(StoresTicketRequest $request, Ticket $ticket, Attachment $attachment)
     {
-        $ticket->create($request->all() + ['user_id' => auth()->id()]);
+        $ticket = $ticket->create($request->ticketAttributes());
+
+        if ($request->hasAttachment()) {
+            $ticket->attachments()->create($request->attachmentAttributes());
+
+            $request->attachment()->store('/', Disk::ATTACHMENTS);
+        }
 
         return redirect('/tickets')->with('success', __('Ticket successfully created!'));
     }

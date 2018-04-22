@@ -3,7 +3,6 @@
 namespace App\Modules\Tickets\Requests;
 
 use Library\Http\Requests\BaseFormRequest;
-use Library\Storage\Disk;
 
 class StoresTicketRequest extends BaseFormRequest
 {
@@ -16,6 +15,11 @@ class StoresTicketRequest extends BaseFormRequest
         ];
     }
 
+    /**
+     * Return array map of tickets attributes for the tickets table.
+     *
+     * @return array
+     */
     public function ticketAttributes()
     {
         return [
@@ -25,10 +29,15 @@ class StoresTicketRequest extends BaseFormRequest
         ];
     }
 
+    /**
+     * Return array map of attachments attribute for the attachments table.
+     *
+     * @return array
+     */
     public function attachmentAttributes()
     {
         return [
-            'path' => $this->file('attachment')->getFilename(),
+            'path' => $this->file('attachment')->hashName(),
         ];
     }
 

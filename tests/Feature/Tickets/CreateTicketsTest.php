@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Library\Eloquent\Ticket;
+use Library\Http\Requests\BaseFormRequest;
 use Library\Storage\Disk;
 use Tests\Concerns\AuthenticatesUser;
 use Tests\TestCase;
@@ -33,7 +34,6 @@ class CreateTicketsTest extends TestCase
 
     /**
      * @test
-     * @group f
      */
     public function a_user_can_open_a_ticket_with_attachments()
     {
@@ -51,10 +51,18 @@ class CreateTicketsTest extends TestCase
 
         $this->assertDatabaseHas('attachments', [
             'attachable_type' => Ticket::class,
-            'path' => $attributes['attachment']->getFilename()
+            'path' => $attributes['attachment']->hashName()
         ]);
 
+        Storage::disk(Disk::ATTACHMENTS)->assertExists($attributes['attachment']->hashName());
+    }
 
-        $this->assertCount(1, Storage::disk(Disk::ATTACHMENTS)->allFiles('/'));
+    /**
+     * @group f
+     */
+    public function the_attachment_must_be_a_file()
+    {
+//        $this->post('/tickets')
+//            ->assertSessionHasErrorsIn(BaseFormRequest::FORM_ERROR_BAG, 'file');
     }
 }

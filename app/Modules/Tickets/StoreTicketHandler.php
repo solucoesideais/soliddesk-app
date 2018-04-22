@@ -3,6 +3,7 @@
 namespace App\Modules\Tickets;
 
 use App\Modules\Tickets\Requests\StoresTicketRequest;
+use App\Modules\Tickets\Responses\TicketStoredResponse;
 use Library\Eloquent\Attachment;
 use Library\Eloquent\Ticket;
 use Library\Storage\Disk;
@@ -19,6 +20,6 @@ class StoreTicketHandler
             $request->attachment()->store('/', Disk::ATTACHMENTS);
         }
 
-        return redirect('/tickets')->with('success', __('Ticket successfully created!'));
+        return new TicketStoredResponse($ticket);
     }
 }

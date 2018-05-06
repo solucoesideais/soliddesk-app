@@ -57,6 +57,15 @@ class CreateTicketsTest extends TestCase
         Storage::disk(Disk::ATTACHMENTS)->assertExists($attributes['attachment']->hashName());
     }
 
+    public function a_user_can_see_the_open_ticket_page()
+    {
+        $this->get('/tickets/create')
+            ->assertSuccessful()
+            ->assertSee('name="title"')
+            ->assertSee('name="body"')
+            ->assertSee('name="attachment"');
+    }
+
     /**
      * @group f
      */

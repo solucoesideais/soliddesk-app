@@ -57,8 +57,8 @@ return [
 
         'attachments' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/attachments/'),
-            'url' => env('APP_URL').'/storage/attachments/',
+            'root' => base_path('../storage/public/attachments/'),
+            'url' => env('STORAGE_ATTACHMENT_URL').'/attachments/',
             'visibility' => 'public',
         ],
 

@@ -11,5 +11,6 @@ class ViewsServiceProvider extends ServiceProvider
     {
         View::addNamespace('auth', app_path('Modules/Auth/resources/views'));
         View::addNamespace('home', app_path('Modules/Home/resources/views'));
+        View::addNamespace('tickets', app_path('Modules/Tickets/resources/views'));
     }
 }
